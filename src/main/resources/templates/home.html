@@ -8,5 +8,10 @@
   </head>
   <body>
   <h1>It is home</h1>
+  <div>
+    <p th:each="file : ${files}">
+      <a th:href="${'image/' + file}" th:text="${file}"></a>
+    </p>
+  </div>
   </body>
 </html>
