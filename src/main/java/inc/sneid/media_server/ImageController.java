@@ -12,7 +12,6 @@ import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -55,7 +54,7 @@ public class ImageController {
             String fileName = splitFileName[0];
 
             System.out.println("Image name is " + fileName);
-            image.transferTo(Path.of("src/main/resources/image/" + fileName + fileExtension));
+            image.transferTo(new File("src/main/resources/image/" + fileName + fileExtension));
             if (needAvatar) {
                 String imageAvatar = fileName + "_avatar";
                 cropAndCompress(image, "src/main/resources/image/" + imageAvatar + fileExtension);
