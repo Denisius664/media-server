@@ -28,7 +28,7 @@ public class ImageController {
                         HttpServletResponse response) {
         try{
             // get your file as InputStream
-            File file = new File("src/main/resources/image/" + imageName);
+            File file = new File(pathImage + imageName);
             if (file.exists()) {
                 InputStream is = new FileInputStream(file);
                 // copy it to response's OutputStream
@@ -44,7 +44,7 @@ public class ImageController {
 
     @PostMapping("image")
     public String getImage(@RequestParam MultipartFile image,
-                           @RequestParam(required = false, defaultValue = "false") boolean needAvatar) throws IOException {
+                           @RequestParam boolean needAvatar) throws IOException {
         if (image != null && !image.getOriginalFilename().isEmpty()
                 && image.getContentType().contains("image")) {
 
