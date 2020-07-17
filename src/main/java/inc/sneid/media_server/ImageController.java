@@ -12,6 +12,8 @@ import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -43,7 +45,7 @@ public class ImageController {
     }
 
     @PostMapping("image")
-    public String getImage(@RequestParam MultipartFile image,
+    public String getImage(@RequestParam("image") MultipartFile image,
                            @RequestParam boolean needAvatar) throws IOException {
         if (image != null && !image.getOriginalFilename().isEmpty()
                 && image.getContentType().contains("image")) {
@@ -54,10 +56,11 @@ public class ImageController {
             String fileName = splitFileName[0];
 
             System.out.println("Image name is " + fileName);
-            image.transferTo(new File("src/main/resources/image/" + fileName + fileExtension));
+            new File(pathImage).mkdirs();
+            image.transferTo(FileSystems.getDefault().getPath(pathImage + fileName + fileExtension));
             if (needAvatar) {
                 String imageAvatar = fileName + "_avatar";
-                cropAndCompress(image, "src/main/resources/image/" + imageAvatar + fileExtension);
+                cropAndCompress(image, pathImage + imageAvatar + fileExtension);
             }
             return "success";
         }else{
