@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
